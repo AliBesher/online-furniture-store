@@ -26,3 +26,16 @@ class User:
         query = "DELETE FROM Users WHERE UserID = ?"
         execute_query(query, (user_id,))
         print(f"تم حذف المستخدم بنجاح.")
+
+
+def view_users(self):
+    query = "SELECT * FROM Users"
+    users = execute_query(query, fetch=True)  # جلب جميع المستخدمين
+
+    if not users:
+        print("⚠️ لا يوجد مستخدمون في قاعدة البيانات.")
+        return
+
+    print("🧑‍💻 قائمة المستخدمين:")
+    for user in users:
+        print(user)
