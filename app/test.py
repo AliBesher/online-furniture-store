@@ -1,4 +1,4 @@
-from app.database import execute_query
+from app import execute_query
 
 def view_users():  # حذف self
     query = "SELECT * FROM Users"
