@@ -1,38 +1,24 @@
 import unittest
 from unittest.mock import patch
-import requests
+from app.services.order_service import OrderService
+from app.services.cart_service import CartService
+from app.models.product import Product
 
-BASE_URL = "http://localhost:5000"
+class TestRegressionFurnitureStore(unittest.TestCase):
+    
+    # Regression test: Ensures that when an order is created, cart is cleared, and stock is updated
+    @patch('app.services.cart_service.CartService.clear_cart')
+    @patch('app.models.product.Product.update_stock')
+    @patch('app.services.order_service.OrderService.create_order')
+    def test_order_process_updates_cart_and_stock(self, mock_create_order, mock_update_stock, mock_clear_cart):
+        mock_create_order.return_value = "✅ تم إتمام عملية الشراء بنجاح. إجمالي المبلغ: 300."
+        mock_update_stock.return_value = None
+        mock_clear_cart.return_value = None
 
-class TestIntegrationFurnitureStore(unittest.TestCase):
-    
-    @patch('requests.post')
-    def test_add_product_api(self, mock_post):
-        mock_post.return_value.status_code = 201
-        mock_post.return_value.json.return_value = {"message": "تمت إضافة المنتج 'Table' بنجاح."}
-        
-        response = requests.post(f"{BASE_URL}/products", json={
-            "name": "Table",
-            "description": "Wooden table",
-            "price": 150,
-            "dimensions": "120x80",
-            "stock_quantity": 10,
-            "category": 1,
-            "image_url": "image.jpg"
-        })
-        
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json()["message"], "تمت إضافة المنتج 'Table' بنجاح.")
-    
-    @patch('requests.post')
-    def test_checkout_api(self, mock_post):
-        mock_post.return_value.status_code = 200
-        mock_post.return_value.json.return_value = {"message": "✅ تم إتمام عملية الشراء بنجاح. إجمالي المبلغ: 500."}
-        
-        response = requests.post(f"{BASE_URL}/checkout", json={"user_id": 1})
-        
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["message"], "✅ تم إتمام عملية الشراء بنجاح. إجمالي المبلغ: 500.")
+        response = OrderService.create_order(1)
+        mock_update_stock.assert_called()
+        mock_clear_cart.assert_called_with(1)
+        self.assertIn("✅ تم إتمام عملية الشراء", response)
 
 if _name_ == "_main_":
-    unittest.main()
+    unittest.main()
