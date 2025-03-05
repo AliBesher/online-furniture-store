@@ -1,3 +1,6 @@
+from app.db.execute_query import execute_query
+
+
 class OrderItem:
     def __init__(self, order_id, product_id, quantity, price):
         self.order_id = order_id

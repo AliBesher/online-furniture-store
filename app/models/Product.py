@@ -1,3 +1,6 @@
+from app.db.execute_query import execute_query
+
+
 class Product:
     def __init__(self, name, description, price, dimensions, stock_quantity, category_id, image_url):
         self.name = name
@@ -10,7 +13,7 @@ class Product:
 
     def add_product(self):
         query = """
-        INSERT INTO Products (Name, Description, Price, Dimensions, StockQuantity, CategoryID, ImageURL, CreatedAt)
+        INSERT INTO Products (Name, Description, Price, Dimensions, StockQuantity, CategoryID, ImageURL)
         VALUES (?, ?, ?, ?, ?, ?, GETDATE())
         """
         execute_query(query, (self.name, self.description, self.price, self.dimensions, self.stock_quantity, self.category_id, self.image_url))

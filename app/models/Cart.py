@@ -1,3 +1,6 @@
+from app.db.execute_query import execute_query
+
+
 class Cart:
     def __init__(self, user_id):
         self.user_id = user_id

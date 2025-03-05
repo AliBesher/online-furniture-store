@@ -46,5 +46,5 @@ class TestUnitFurnitureStore(unittest.TestCase):
             response = ProductService.update_product_stock(1, 5)
             self.assertEqual(response, "تم تحديث المخزون للمنتج 1 بنجاح.")
 
-if _name_ == "_main_":
-    unittest.main()
+if __name__ == '__main__':
+   unittest.main()

@@ -1,3 +1,6 @@
+from app.db.execute_query import execute_query
+
+
 class User:
     def __init__(self, name, email, password, role="customer"):
         self.name = name

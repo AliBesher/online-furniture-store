@@ -34,5 +34,6 @@ class TestIntegrationFurnitureStore(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["message"], "✅ تم إتمام عملية الشراء بنجاح. إجمالي المبلغ: 500.")
 
-if _name_ == "_main_":
-    unittest.main()
+if  __name__ == '__main__':
+
+   unittest.main()

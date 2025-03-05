@@ -1,3 +1,6 @@
+from app.db.execute_query import execute_query
+
+
 class Order:
     def __init__(self, user_id, total_amount, status="pending"):
         self.user_id = user_id

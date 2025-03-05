@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch
 from app.services.order_service import OrderService
 from app.services.cart_service import CartService
-from app.models.product import Product
+from app.models.Product import Product
 
 class TestRegressionFurnitureStore(unittest.TestCase):
     
@@ -20,5 +20,5 @@ class TestRegressionFurnitureStore(unittest.TestCase):
         mock_clear_cart.assert_called_with(1)
         self.assertIn("✅ تم إتمام عملية الشراء", response)
 
-if _name_ == "_main_":
-    unittest.main()
+if __name__ == '__main__':
+   unittest.main()

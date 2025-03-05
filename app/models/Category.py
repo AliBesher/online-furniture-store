@@ -1,3 +1,6 @@
+from app.db.execute_query import execute_query
+
+
 class Category:
     def __init__(self, name, description):
         self.name = name
